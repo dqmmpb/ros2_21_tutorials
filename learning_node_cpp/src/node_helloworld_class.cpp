@@ -3,6 +3,8 @@
 @说明: ROS2节点示例-发布“Hello World”日志信息, 使用面向对象的实现方式
 ***/
 
+#include <chrono>
+#include <thread>
 #include "rclcpp/rclcpp.hpp"
 
 
@@ -18,7 +20,7 @@ class HelloWorldNode : public rclcpp::Node
             while(rclcpp::ok())                                  // ROS2系统是否正常运行
             {
                 RCLCPP_INFO(this->get_logger(), "Hello World");  // ROS2日志输出
-                sleep(1);                                        // 休眠控制循环时间
+                std::this_thread::sleep_for(std::chrono::seconds(1));   // 休眠控制循环时间
             }
         }
 };
