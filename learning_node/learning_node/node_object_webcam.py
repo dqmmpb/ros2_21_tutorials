@@ -37,7 +37,17 @@ def main(args=None):                                                       # ROS
     node = Node("node_object_webcam")                                      # 创建ROS2节点对象并进行初始化
     node.get_logger().info("ROS2节点示例：检测图像中的苹果")
 
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
+
+#    ## WSL2环境中
+#    ## 1. 需要根据WSL2的源码编译linux内核，开启USB/IP support和Multimedia support，参看 https://www.cnblogs.com/ljbguanli/p/19253614
+#    ## 2. 需要使用 WSL2 + OpenCV + GStreamer + ROS2 的方式才能读取到摄像头，请安装gstreamer相关软件包
+#    cap = cv2.VideoCapture(
+#        "v4l2src device=/dev/video0 ! "
+#        "image/jpeg,width=640,height=480,framerate=30/1 ! "
+#        "jpegdec ! videoconvert ! appsink",
+#        cv2.CAP_GSTREAMER
+#    )
 
     
     while rclpy.ok():
